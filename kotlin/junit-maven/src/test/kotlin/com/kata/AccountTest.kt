@@ -45,6 +45,21 @@ internal class AccountTest {
         // Assert
         assertThat(deposit).isEqualTo(1500)
     }
+    
+    @Test
+    fun depositCreatesTransactionAndStoresIt () {
+        // Arrange
+        account = Account(500)
+
+        // Act
+        account.deposit(1000)
+
+        // Assert
+        val expectedTransaction = Transaction("deposit", "+1000",1500)
+        assertThat(account.getTransactions().first())
+            .usingRecursiveComparison()
+            .isEqualTo(expectedTransaction)
+    }
 
     @Test
     fun withdraw500FromMyAccount() {
@@ -55,7 +70,10 @@ internal class AccountTest {
         var withdraw = account.withdraw(500)
 
         // Assert
-        assertThat(withdraw).isEqualTo(500)
+        val expectedTransaction = Transaction("deposit", "+1000",1500)
+        assertThat(account.getTransactions().first())
+            .usingRecursiveComparison()
+            .isEqualTo(expectedTransaction)
     }
 
     @Test
