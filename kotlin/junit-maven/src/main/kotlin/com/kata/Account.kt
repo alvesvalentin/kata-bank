@@ -10,5 +10,11 @@ class Account(private var balance: Int = 0) {
         return this.balance
     }
 
+    fun withdraw(amountToBeWithdrawn: Int): Int {
+        if (balance < amountToBeWithdrawn) throw NegativeBalanceException()
+        this.balance -= amountToBeWithdrawn
+        return this.balance
+    }
+
 
 }

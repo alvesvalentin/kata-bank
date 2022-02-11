@@ -45,4 +45,23 @@ internal class AccountTest {
         // Assert
         assertThat(deposit).isEqualTo(1500)
     }
+
+    @Test
+    fun withdraw500FromMyAccount() {
+        // Arrange
+        account = Account(1000)
+
+        // Act
+        var withdraw = account.withdraw(500)
+
+        // Assert
+        assertThat(withdraw).isEqualTo(500)
+    }
+
+    @Test
+    fun preventWithdrawMoreMoneyThanAvailableinMyAccount() {
+        // Act & Assert
+        assertThatThrownBy { account.withdraw(500) }
+            .hasMessage("Negative balance is forbidden.")
+    }
 }
