@@ -24,4 +24,25 @@ internal class AccountTest {
         // Assert
         assertThat(balance).isEqualTo(500)
     }
+
+    @Test
+    fun deposit500IntoMyAccount() {
+        // Act
+        val deposit = account.deposit(500)
+
+        // Assert
+        assertThat(deposit).isEqualTo(500)
+    }
+
+    @Test
+    fun deposit1000IntoMyAccountWithAStartBalanceOf500() {
+        // Arrange
+        account = Account(500)
+
+        // Act
+        val deposit = account.deposit(1000)
+
+        // Assert
+        assertThat(deposit).isEqualTo(1500)
+    }
 }

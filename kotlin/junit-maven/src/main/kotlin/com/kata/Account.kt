@@ -5,5 +5,10 @@ class Account(private var balance: Int = 0) {
         return this.balance
     }
 
+    fun deposit(depositOnBalance: Int): Int {
+        this.balance += depositOnBalance
+        return this.balance
+    }
+
 
 }
