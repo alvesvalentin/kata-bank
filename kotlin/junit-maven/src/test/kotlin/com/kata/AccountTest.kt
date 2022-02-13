@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
 
 internal class AccountTest {
 
@@ -55,7 +56,7 @@ internal class AccountTest {
         account.deposit(1000)
 
         // Assert
-        val expectedTransaction = Transaction("deposit", "+1000",1500)
+        val expectedTransaction = Transaction("deposit", "+1000", 1500, LocalDate.now())
         assertThat(account.getTransactions().first())
             .usingRecursiveComparison()
             .isEqualTo(expectedTransaction)
@@ -70,7 +71,19 @@ internal class AccountTest {
         var withdraw = account.withdraw(500)
 
         // Assert
-        val expectedTransaction = Transaction("deposit", "+1000",1500)
+        assertThat(withdraw).isEqualTo(500)
+    }
+
+    @Test
+    fun withdrawCreatesTransactionAndStoresIt() {
+        // Arrange
+        account = Account(1000)
+
+        // Act
+        account.withdraw(500)
+
+        // Assert
+        val expectedTransaction = Transaction("withdraw", "-500", 500, LocalDate.now())
         assertThat(account.getTransactions().first())
             .usingRecursiveComparison()
             .isEqualTo(expectedTransaction)
